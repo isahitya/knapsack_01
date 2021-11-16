@@ -1,7 +1,9 @@
 #include<iostream>
 #include<fstream>
 #include<vector>
+#include <chrono>
 using namespace std;
+using namespace std::chrono;
 
 struct Item {
     int w;
@@ -55,6 +57,12 @@ int knapsack(vector<Item> &vec, int cap)
 
 int main () {
     vector<Item> testcase = read_testcase_file("./testcase_gen/testcases/test_1.txt");
+    
+    auto start = high_resolution_clock::now();
     cout << knapsack(testcase, 1000) << endl;
+    auto stop = high_resolution_clock::now();
+    
+    auto duration = duration_cast<microseconds>(stop - start);
+    cout << "Time taken by dynamic programming: " << duration.count() << endl;
     
 }
