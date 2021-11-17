@@ -10,12 +10,14 @@ struct Item {
     int v;
 };
 
-vector<Item> read_testcase_file(string filename) {
+pair<int, vector<Item> > read_testcase_file(string filename) {
     vector<Item> out;
     string line;
     ifstream testcase_file(filename);
-
+    int m;
     if(testcase_file.is_open()) {
+        getline(testcase_file, line);
+        m = stoi(line);
         while(getline(testcase_file, line)) {
             string weight = line.substr(0, line.find(','));
             string value = line.substr(line.find(',') + 1);
@@ -28,7 +30,7 @@ vector<Item> read_testcase_file(string filename) {
     } else {
         cout << "File not found" << endl;
     }
-    return out;
+    return pair<int, vector<Item> >(m, out);
 }
 
 
@@ -69,18 +71,20 @@ pair<int, vector<Item> > knapsack_enumerate(vector<Item> &vec, int cap)
 }
 
 int main () {
-    vector<Item> testcase = read_testcase_file("./testcase_gen/testcases/test_1.txt");
+    pair<int, vector<Item> > testcase = read_testcase_file("./testcase_gen/testcases/test_1.txt");
     
     auto start = high_resolution_clock::now();
-    pair<int, vector<Item> > ans = knapsack_enumerate(testcase, 1000);
+    pair<int, vector<Item> > ans = knapsack_enumerate(testcase.second, testcase.first);
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start);
+    cout << endl;
     cout << "Time taken by dynamic programming: " << duration.count() << endl;
     
     cout << "Maximum profit from dynamic programming: " << ans.first << endl;
-    cout << "Solution items- " << endl;
+    cout << "Solution items- ";
     for(Item i : ans.second) {
         cout << "(" << i.w << ", " << i.v << "), ";
     }
+    cout << endl;
     cout << endl;
 }

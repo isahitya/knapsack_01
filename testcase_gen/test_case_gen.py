@@ -18,13 +18,14 @@ def gen_random_items(n, m):
     return zip(weights, profits)
 
 for i in range(0, 10):
-    #n = random.randrange(10, 1000)
-    n = 10
+    n = random.randrange(10, 1000)
+    if i == 0: n = 20
     m = random.randrange(10, 1000)
     items = gen_random_items(n, m)
     f = open("./testcases/test_" + str(i + 1) + ".txt", "w")
+    f.write(str(m))
+    f.write('\n')
     for each in items:
-        #f.write(str(each) + ",")
         f.write(str(each[0]))
         f.write(',')
         f.write(str(each[1]))

@@ -10,12 +10,14 @@ struct Item {
     int v;
 };
 
-vector<Item> read_testcase_file(string filename) {
+pair<int, vector<Item> > read_testcase_file(string filename) {
     vector<Item> out;
     string line;
     ifstream testcase_file(filename);
-
+    int m;
     if(testcase_file.is_open()) {
+        getline(testcase_file, line);
+        m = stoi(line);
         while(getline(testcase_file, line)) {
             string weight = line.substr(0, line.find(','));
             string value = line.substr(line.find(',') + 1);
@@ -28,9 +30,8 @@ vector<Item> read_testcase_file(string filename) {
     } else {
         cout << "File not found" << endl;
     }
-    return out;
+    return pair<int, vector<Item> >(m, out);
 }
-
 
 // bool item_comparator_by_most_value(Item &a, Item &b) {
 //     return a.v > b.v;
@@ -59,13 +60,14 @@ int knapsack(vector<Item> items, int M) {
 }
 
 int main () {
-    vector<Item> testcase = read_testcase_file("./testcase_gen/testcases/test_1.txt");
+    pair<int, vector<Item> > testcase = read_testcase_file("./testcase_gen/testcases/test_1.txt");
     
+    cout << endl;
     auto start = high_resolution_clock::now();
-    cout << "Maximum profit from greedy: " << knapsack(testcase, 1000) << endl;
+    cout << "Maximum profit from greedy: " << knapsack(testcase.second, testcase.first) << endl;
     auto stop = high_resolution_clock::now();
     
     auto duration = duration_cast<microseconds>(stop - start);
     cout << "Time taken by greedy approach: " << duration.count() << endl;
-    
+    cout << endl;
 }
