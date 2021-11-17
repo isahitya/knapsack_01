@@ -1,0 +1,8 @@
+#!/bin/bash
+g++ dp.cpp -o dp.out -w
+g++ dp_enumerate.cpp -o dp_enumerate.out -w
+g++ greedy.cpp -o greedy.out -w
+g++ greedy_enumerate.cpp -o greedy_enumerate.out -w
+g++ brute.cpp -o brute.out -w
+g++ brute_enumerate.cpp -o brute_enumerate.out -w
+echo "Compile successfully!"

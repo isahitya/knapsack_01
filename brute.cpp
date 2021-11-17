@@ -48,7 +48,7 @@ int main () {
     vector<Item> testcase = read_testcase_file("./testcase_gen/testcases/test_1.txt");
     
     auto start = high_resolution_clock::now();
-    cout << knapsack(testcase, 1000, testcase.size()) << endl;
+    cout << "Maximum profit from brute force: " << knapsack(testcase, 1000, testcase.size()) << endl;
     auto stop = high_resolution_clock::now();
     
     auto duration = duration_cast<microseconds>(stop - start);

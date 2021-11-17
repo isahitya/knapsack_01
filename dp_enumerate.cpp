@@ -32,10 +32,12 @@ vector<Item> read_testcase_file(string filename) {
 }
 
 
-int knapsack(vector<Item> &vec, int cap)
+pair<int, vector<Item> > knapsack_enumerate(vector<Item> &vec, int cap)
 {
     int n = vec.size();
     int dp[n+1][cap+1];
+    vector<Item> out;
+
     int i,j;
     for(i=0;i<=cap;++i)dp[0][i]=0;
     for(i=0;i<=n;++i)dp[i][0]=0;
@@ -52,17 +54,33 @@ int knapsack(vector<Item> &vec, int cap)
             }
         }
     }
-    return dp[n][cap];
+    int res = dp[n][cap];
+    int w = cap;
+    for(int i = n; i > 0 && res > 0; --i) {
+        if(res == dp[i - 1][w]) {
+            continue;
+        } else {
+            out.push_back(vec[i - 1]);
+            res = res - vec[i - 1].v;
+            w = w - vec[i - 1].w;
+        }
+    }
+    return pair<int, vector<Item> >(dp[n][cap], out);
 }
 
 int main () {
     vector<Item> testcase = read_testcase_file("./testcase_gen/testcases/test_1.txt");
     
     auto start = high_resolution_clock::now();
-    cout << "Maximum profit from dynamic programming: " << knapsack(testcase, 1000) << endl;
+    pair<int, vector<Item> > ans = knapsack_enumerate(testcase, 1000);
     auto stop = high_resolution_clock::now();
-    
     auto duration = duration_cast<microseconds>(stop - start);
     cout << "Time taken by dynamic programming: " << duration.count() << endl;
     
+    cout << "Maximum profit from dynamic programming: " << ans.first << endl;
+    cout << "Solution items- " << endl;
+    for(Item i : ans.second) {
+        cout << "(" << i.w << ", " << i.v << "), ";
+    }
+    cout << endl;
 }
