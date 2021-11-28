@@ -1,0 +1,5 @@
+#!/bin/bash
+cd ./testcase_gen
+python3 test_case_gen.py
+cd ..
+

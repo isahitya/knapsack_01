@@ -69,15 +69,42 @@ int main () {
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start);
     
-    cout << "Time taken by brute force: " << duration.count() << endl;
-    cout << "Optimal subset profit : " << ans.first << endl;
-    cout << "All possible subsets- " << endl;
+    cout << "Time taken: " << duration.count() << endl;
+    cout << "Profit obtained from the optimal subset : " << ans.first << endl;
+    cout << "Enumeration of all feasible subsets- " << endl;
+    int each_profit = 0;
+    int each_weight = 0;
+    int greedy_subset_index = 0;
+    int i = 0;
     for(vector<Item> subset : ans.second) {
+        each_profit = 0;
+        each_weight = 0;
         for(Item i : subset) {
             cout << "(" << i.w << ", " << i.v << "), ";
+            each_profit += i.v;
+            each_weight = i.w;
         }
+        if(each_profit == ans.first) {
+            greedy_subset_index = i;
+        }
+        //cout << endl << " Total Weight : " << each_weight << " Total Profit : " << each_profit;
         cout << endl;
+        i++;
     }
+
+    cout << "Optimal subset by greedy method: " << endl;
+    each_profit = 0;
+    each_weight = 0;
+    for(Item i : ans.second[greedy_subset_index]) {
+        cout << "(" << i.w << ", " << i.v << "), ";
+        each_profit += i.v;
+        each_weight = i.w;
+    }
+    cout << endl;
+    cout << "Total Weight : " << each_weight << " Total Profit : " << each_profit;
+    cout << endl;
+
+
     cout << endl;
     
 }

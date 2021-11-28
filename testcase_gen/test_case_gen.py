@@ -19,7 +19,7 @@ def gen_random_items(n, m):
 
 for i in range(0, 10):
     n = random.randrange(10, 1000)
-    if i == 0: n = 20
+    if i == 0: n = 10
     m = random.randrange(10, 1000)
     items = gen_random_items(n, m)
     f = open("./testcases/test_" + str(i + 1) + ".txt", "w")

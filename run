@@ -1,5 +1,6 @@
 #!/bin/bash
 #Will run all non-enumerating knapsack solutions for first testcase
-./dp.out
-./brute.out
-./greedy.out
+./dp_enumerate.out
+./greedy_enumerate.out
+./brute_enumerate.out
+
